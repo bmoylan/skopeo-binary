@@ -47,7 +47,7 @@ jobs:
               function go_build() {
                 GOOS=$1
                 GOARCH=$2
-                docker run --rm -t -v $PWD:/build golang:1.20.6-alpine3.18 sh -c "apk update && apk add gpgme btrfs-progs-dev llvm13-dev gcc musl-dev && cd /build && CGO_ENABLE=0 GO111MODULE=on GOOS=$GOOS GOARCH=$GOARCH go build -mod=vendor '-buildmode=pie' -ldflags '-extldflags -static' -gcflags '' -tags 'exclude_graphdriver_devicemapper exclude_graphdriver_btrfs containers_image_openpgp' -o ./bin/skopeo-${GOOS}-${GOARCH} ./cmd/skopeo && md5sum ./bin/skopeo-${GOOS}-${GOARCH} > ./bin/skopeo-${GOOS}-${GOARCH}.md5 && sha256sum ./bin/skopeo-${GOOS}-${GOARCH} > ./bin/skopeo-${GOOS}-${GOARCH}.sha256"
+                docker run --rm -t -v $PWD:/build golang:1.20.6-alpine3.18 sh -c "apk update && apk add gpgme btrfs-progs-dev llvm15-dev gcc musl-dev && cd /build && CGO_ENABLE=0 GO111MODULE=on GOOS=$GOOS GOARCH=$GOARCH go build -mod=vendor '-buildmode=pie' -ldflags '-extldflags -static' -gcflags '' -tags 'exclude_graphdriver_devicemapper exclude_graphdriver_btrfs containers_image_openpgp' -o ./bin/skopeo-${GOOS}-${GOARCH} ./cmd/skopeo && md5sum ./bin/skopeo-${GOOS}-${GOARCH} > ./bin/skopeo-${GOOS}-${GOARCH}.md5 && sha256sum ./bin/skopeo-${GOOS}-${GOARCH} > ./bin/skopeo-${GOOS}-${GOARCH}.sha256"
               }
               
               go_build linux amd64
